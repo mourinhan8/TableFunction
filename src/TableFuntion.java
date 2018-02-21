@@ -10,11 +10,16 @@ public final class TableFuntion {
         listY = new ArrayList<>();
     }
 
-    public void add(double x, double y) {
-        listX.add(x);
-        listY.add(y);
+    public boolean contains(double x, double y) {
+        return listX.indexOf(x) >= 0 && listY.get(listX.indexOf(x)) == y;
     }
 
+    public void add(double x, double y) {
+        if (!contains(x, y)) {
+            listX.add(x);
+            listY.add(y);
+        }
+    }
 
     public void remove(double x) {
         int ind = listX.indexOf(x);
@@ -28,16 +33,13 @@ public final class TableFuntion {
         StringBuilder st = new StringBuilder();
         int n = listX.size();
         for (int i = 0; i < n; i++) {
-            st.append("(" + listX.get(i) + ", " + listY.get(i) + ")").append(", ");
+            if (i != n -1) st.append("(" + listX.get(i) + ", " + listY.get(i) + ")").append(", ");
+            else st.append("(" + listX.get(i) + ", " + listY.get(i) + ")");
         }
         return st.toString();
     }
 
-    public boolean contains(double x, double y) {
-        return listX.indexOf(x) >= 0 && listY.get(listX.indexOf(x)) == y;
-    }
-
-    public ArrayList<Double> findNearestValue(double x) {
+    public String findNearestValue(double x) {
         double minrange = Math.abs(x - listX.get(0));
         int location = 0;
         int n = listX.size();
@@ -50,10 +52,7 @@ public final class TableFuntion {
         }
         double findX = listX.get(location);
         double findY = listY.get(location);
-        ArrayList res = new ArrayList();
-        res.add(findX);
-        res.add(findY);
-        return res;
+        return "(" + findX + ", " + findY + ")";
     }
 
     public double interpolate(double x) {
