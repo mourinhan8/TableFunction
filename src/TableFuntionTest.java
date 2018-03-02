@@ -1,19 +1,38 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TableFuntionTest {
+
+    @Test
+    public void contains() {
+        TableFuntion st = new TableFuntion();
+        for (int i = -5; i < 5; i++) {
+            st.add(i, 2 * i);
+        }
+        assertEquals(false, st.contains(-5, 10));
+        assertEquals(true, st.contains(-5, -10));
+        assertEquals(true, st.contains(-4, -8));
+        assertEquals(false, st.contains(3.5, 2));
+        assertEquals(false, st.contains(-7, -14));
+    }
+
     @Test
     public void findNearestValue() {
         TableFuntion st = new TableFuntion();
         for (int i = -5; i < 5; i++) {
             st.add(i, 1 + 2 * i);
         }
-        assertEquals("(-4.0, -7.0)", st.findNearestValue(-3.9));
-        assertEquals("(0.0, 1.0)", st.findNearestValue(-0.25));
-        assertEquals("(0.0, 1.0)", st.findNearestValue(0.5));
-        assertEquals("(3.0, 7.0)", st.findNearestValue(3));
-        assertEquals("(4.0, 9.0)", st.findNearestValue(4));
-        assertEquals("(1.0, 3.0)", st.findNearestValue(1));
+        assertEquals(new Point(-4, -7), st.findNearestValue(-3.9));
+        assertEquals(new Point(0, 1), st.findNearestValue(-0.25));
+        assertEquals(new Point(1, 3), st.findNearestValue(0.5));
+        assertEquals(new Point(3, 7), st.findNearestValue(3));
+        assertEquals(new Point(4, 9), st.findNearestValue(4));
+        assertEquals(new Point(1, 3), st.findNearestValue(1));
+        st.remove(-4);
+        assertEquals(new Point(-3, -5), st.findNearestValue(-3.9));
+        st.remove(3);
+        assertEquals(new Point(4, 9), st.findNearestValue(3));
     }
     @Test
     public void interpolate() {
@@ -28,18 +47,5 @@ public class TableFuntionTest {
         assertEquals(-8.0, st.interpolate(-4), 1.0E-05);
         assertEquals(11.999999999999943, st.interpolate(6), 1.0E-05);
     }
-    @Test
-    public void show(){
-        TableFuntion st = new TableFuntion();
-        for (int i = -5; i < 5; i++) {
-            st.add(i, 2 * i);
-        }
-        assertEquals("(-5.0, -10.0), (-4.0, -8.0), (-3.0, -6.0), (-2.0, -4.0), (-1.0, -2.0), (0.0, 0.0), (1.0, 2.0), (2.0, 4.0), (3.0, 6.0), (4.0, 8.0)", st.show());
-        st.remove(-4.0);
-        assertEquals("(-5.0, -10.0), (-3.0, -6.0), (-2.0, -4.0), (-1.0, -2.0), (0.0, 0.0), (1.0, 2.0), (2.0, 4.0), (3.0, 6.0), (4.0, 8.0)", st.show());
-        st.remove(3);
-        assertEquals("(-5.0, -10.0), (-3.0, -6.0), (-2.0, -4.0), (-1.0, -2.0), (0.0, 0.0), (1.0, 2.0), (2.0, 4.0), (4.0, 8.0)", st.show());
-        st.remove(-7);
-        assertEquals("(-5.0, -10.0), (-3.0, -6.0), (-2.0, -4.0), (-1.0, -2.0), (0.0, 0.0), (1.0, 2.0), (2.0, 4.0), (4.0, 8.0)", st.show());
-    }
+
 }
