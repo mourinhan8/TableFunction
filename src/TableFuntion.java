@@ -24,8 +24,14 @@ public final class TableFuntion {
         }
     }
 
-    public TreeMap<Double, Double> show() {
-        return (TreeMap<Double, Double>) table;
+    public ArrayList<Point> getTable() {
+        ArrayList<Point> list = new ArrayList<>();
+        for (double i : table.keySet()) {
+            double j = table.get(i);
+            Point A = new Point(i, j);
+            list.add(A);
+        }
+        return list;
     }
 
     public Point findNearestValue(double x) {
@@ -37,16 +43,30 @@ public final class TableFuntion {
         else return new Point(key1, table.get(key1));
     }
 
+    public boolean isInRange(double x) {
+        return x >= table.firstKey() && x <= table.lastKey();
+    }
+
     public double interpolate(double x) {
-        double p;
-        double f = 0;
-        for (double i : table.keySet()) {
-            p = 1;
-            for (double j : table.keySet())
-                if (i != j) p *= (x - j) / (i - j);
-            f += p * table.get(i);
+        if (!isInRange(x)) {
+            double p;
+            double f = 0;
+            for (double i : table.keySet()) {
+                p = 1;
+                for (double j : table.keySet())
+                    if (i != j) p *= (x - j) / (i - j);
+                f += p * table.get(i);
+            }
+            return f;
         }
-        return f;
+        if (table.containsKey(x)) return table.get(x);
+        else {
+            double x1 = table.floorKey(x);
+            double y1 = table.get(x1);
+            double x2 = table.ceilingKey(x);
+            double y2 = table.get(x2);
+            return (y2 - y1) * (x - x1) / (x2 - x1) + y1;
+        }
     }
 
     @Override

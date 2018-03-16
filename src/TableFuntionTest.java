@@ -34,6 +34,23 @@ public class TableFuntionTest {
         st.remove(3);
         assertEquals(new Point(4, 9), st.findNearestValue(3));
     }
+
+    @Test
+    public void getTable() {
+        TableFuntion st = new TableFuntion();
+        for (int i = -5; i < 5; i++) {
+            st.add(i, 1 + 2 * i);
+        }
+        assertEquals([Point [x = -5.0, y = -9.0], Point [x = -4.0, y = -7.0], Point [x = -3.0, y = -5.0],
+        Point [x = -2.0, y = -3.0], Point [x = -1.0, y = -1.0], Point [x = 0.0, y = 1.0], Point [x = 1.0, y = 3.0],
+        Point [x = 2.0, y = 5.0], Point [x = 3.0, y = 7.0], Point [x = 4.0, y = 9.0]], st.getTable());
+        TableFuntion tb = new TableFuntion();
+        for (int i = -5; i < 5; i++) {
+            st.add(i, 2 * i);
+        }
+        assertEquals(, tb.getTable());
+    }
+
     @Test
     public void interpolate() {
         TableFuntion st = new TableFuntion();
