@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class TableFuntionTest {
@@ -38,17 +40,19 @@ public class TableFuntionTest {
     @Test
     public void getTable() {
         TableFuntion st = new TableFuntion();
+        ArrayList<Point> list = new ArrayList<>();
         for (int i = -5; i < 5; i++) {
             st.add(i, 1 + 2 * i);
+            list.add(new Point(i, 1 + 2 * i));
         }
-        assertEquals([Point [x = -5.0, y = -9.0], Point [x = -4.0, y = -7.0], Point [x = -3.0, y = -5.0],
-        Point [x = -2.0, y = -3.0], Point [x = -1.0, y = -1.0], Point [x = 0.0, y = 1.0], Point [x = 1.0, y = 3.0],
-        Point [x = 2.0, y = 5.0], Point [x = 3.0, y = 7.0], Point [x = 4.0, y = 9.0]], st.getTable());
+        assertEquals(list, st.getTable());
         TableFuntion tb = new TableFuntion();
+        ArrayList<Point> list1 = new ArrayList<>();
         for (int i = -5; i < 5; i++) {
-            st.add(i, 2 * i);
+            tb.add(i, 2 * i);
+            list1.add(new Point(i, 2 * i));
         }
-        assertEquals(, tb.getTable());
+        assertEquals(list1, tb.getTable());
     }
 
     @Test
