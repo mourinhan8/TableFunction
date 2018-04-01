@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -40,19 +40,19 @@ public class TableFuntionTest {
     @Test
     public void getTable() {
         TableFuntion st = new TableFuntion();
-        ArrayList<Point> list = new ArrayList<>();
+        Map<Double, Double> map = new TreeMap<Double, Double>() {};
         for (int i = -5; i < 5; i++) {
             st.add(i, 1 + 2 * i);
-            list.add(new Point(i, 1 + 2 * i));
+            map.put((double) i, (double) 1 + 2 * i);
         }
-        assertEquals(list, st.getTable());
+        assertEquals(map, st.getTable());
         TableFuntion tb = new TableFuntion();
-        ArrayList<Point> list1 = new ArrayList<>();
+        Map<Double, Double> map2 = new TreeMap<Double, Double>() {};
         for (int i = -5; i < 5; i++) {
             tb.add(i, 2 * i);
-            list1.add(new Point(i, 2 * i));
+            map2.put((double) i, (double) 2 * i);
         }
-        assertEquals(list1, tb.getTable());
+        assertEquals(map2, tb.getTable());
     }
 
     @Test

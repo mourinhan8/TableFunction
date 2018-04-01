@@ -24,14 +24,8 @@ public final class TableFuntion {
         }
     }
 
-    public ArrayList<Point> getTable() {
-        ArrayList<Point> list = new ArrayList<>();
-        for (double i : table.keySet()) {
-            double j = table.get(i);
-            Point A = new Point(i, j);
-            list.add(A);
-        }
-        return list;
+    public NavigableMap<Double, Double> getTable() {
+        return Collections.unmodifiableNavigableMap(table);
     }
 
     public Point findNearestValue(double x) {
